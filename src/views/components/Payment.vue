@@ -69,7 +69,7 @@
                       <span class="white--text">{{ getInitials(item) }}</span>
                     </v-avatar>
                     <div>
-                      <div class="font-weight-medium">{{ item.surname }} {{ item.name }}</div>
+                      <div class="font-weight-medium text-capitalize">{{ item.surname }} {{ item.name }}</div>
                       <div class="text-caption" v-if="item.teacher && item.teacher.name">
                         <v-icon small class="mr-1">mdi-account-tie</v-icon>
                         {{ item.teacher.name }}

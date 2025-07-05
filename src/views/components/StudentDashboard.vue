@@ -52,7 +52,7 @@
               <v-col cols="12" md="4">
                 <v-text-field v-model="search" prepend-inner-icon="mdi-magnify"
                   label="Ism yoki Familya bo'yicha qidirish" outlined dense clearable
-                  @input="onSearchInput" ></v-text-field>
+                  @input="onSearchInput"></v-text-field>
               </v-col>
 
               <!-- Fan bo'yicha filter -->
@@ -120,123 +120,123 @@
       </div>
     </v-container>
 
-   <v-container fluid >
-     <!-- Students Data Table with Enhanced UI -->
-    <v-card class="rounded-lg table-card" elevation="3">
-      <v-data-table :headers="headers" :items="filteredStudents" :items-per-page="10" :dense="denseTable === 1"
-        :loading="loading" class="elevation-0" :footer-props="{
-          'items-per-page-options': [5, 10, 15, 20],
-          'items-per-page-text': 'Sahifada:',
-        }" :sort-by="['surname']" :sort-desc="[false]" multi-sort>
-        <!-- Custom loading -->
-        <template v-slot:loading>
-          <div class="d-flex justify-center align-center pa-4">
-            <v-progress-circular indeterminate color="blue" size="64"></v-progress-circular>
-          </div>
-        </template>
+    <v-container fluid>
+      <!-- Students Data Table with Enhanced UI -->
+      <v-card class="rounded-lg table-card" elevation="3">
+        <v-data-table  :headers="headers" :items="filteredStudents" :items-per-page="10" :dense="denseTable === 1"
+          :loading="loading" class="elevation-0 text-capitalize" :footer-props="{
+            'items-per-page-options': [5, 10, 15, 20],
+            'items-per-page-text': 'Sahifada:',
+          }" :sort-by="['surname']" :sort-desc="[false]" multi-sort>
+          <!-- Custom loading -->
+          <template v-slot:loading>
+            <div class="d-flex justify-center align-center pa-4">
+              <v-progress-circular indeterminate color="blue" size="64"></v-progress-circular>
+            </div>
+          </template>
 
-        <!-- Index column -->
-        <template v-slot:item.index="{ index }">
-          <v-chip x-small color="blue" text-color="white" class="font-weight-bold">
-            {{ index + 1 }}
-          </v-chip>
-        </template>
+          <!-- Index column -->
+          <template v-slot:item.index="{ index }">
+            <v-chip x-small color="blue" text-color="white" class="font-weight-bold">
+              {{ index + 1 }}
+            </v-chip>
+          </template>
 
-        <!-- Name column -->
-        <template v-slot:item.name="{ item }">
-          <div class="d-flex align-center">
-            <v-avatar size="32" color="blue lighten-4" class="mr-2">
-              <span class="blue--text font-weight-bold">{{
-                getInitials(item.name)
-              }}</span>
-            </v-avatar>
-            <span class="font-weight-medium">{{ item.name }}</span>
-          </div>
-        </template>
+          <!-- Name column -->
+          <template v-slot:item.name="{ item }">
+            <div class="d-flex align-center">
+              <v-avatar size="32" color="blue lighten-4" class="mr-2">
+                <span class="blue--text font-weight-bold text-capitalize">{{
+                  getInitials(item.name)
+                }}</span>
+              </v-avatar>
+              <span class="font-weight-medium text-capitalize">{{ item.name }}</span>
+            </div>
+          </template>
 
-        <!-- Teacher column -->
-        <template v-slot:item.teacher="{ item }">
-          <div class="d-flex align-center">
-            <v-avatar size="28" color="indigo lighten-1" class="mr-2">
-              <span class="white--text">{{
-                getInitials(item.teacher.name)
-              }}</span>
-            </v-avatar>
-            <span>{{ item.teacher.name }}</span>
-          </div>
-        </template>
+          <!-- Teacher column -->
+          <template v-slot:item.teacher="{ item }">
+            <div class="d-flex align-center">
+              <v-avatar size="28" color="indigo lighten-1" class="mr-2">
+                <span class="white--text">{{
+                  getInitials(item.teacher.name)
+                }}</span>
+              </v-avatar>
+              <span>{{ item.teacher.name }}</span>
+            </div>
+          </template>
 
-        <!-- Subject column -->
-        <template v-slot:item.subject="{ item }">
-          <v-chip small :color="getSubjectColor(item.subject)" text-color="white" class="font-weight-medium">
-            {{ item.subject }}
-          </v-chip>
-        </template>
+          <!-- Subject column -->
+          <template v-slot:item.subject="{ item }">
+            <v-chip small :color="getSubjectColor(item.subject)" text-color="white" class="font-weight-medium">
+              {{ item.subject }}
+            </v-chip>
+          </template>
 
-        <!-- Phone column -->
-        <template v-slot:item.phone="{ item }">
-          <div class="d-flex align-center">
-            <v-icon small color="grey" class="mr-1">mdi-phone</v-icon>
-            {{ formatPhone(item.phone) }}
-          </div>
-        </template>
+          <!-- Phone column -->
+          <template v-slot:item.phone="{ item }">
+            <div class="d-flex align-center">
+              <v-icon small color="grey" class="mr-1">mdi-phone</v-icon>
+              {{ formatPhone(item.phone) }}
+            </div>
+          </template>
 
-        <!-- Date column -->
-        <template v-slot:item.date="{ item }">
-          <div class="d-flex align-center">
-            <v-icon small color="grey" class="mr-1">mdi-calendar</v-icon>
-            {{ formatDate(item.date) }}
-          </div>
-        </template>
+          <!-- Date column -->
+          <template v-slot:item.date="{ item }">
+            <div class="d-flex align-center">
+              <v-icon small color="grey" class="mr-1">mdi-calendar</v-icon>
+              {{ formatDate(item.date) }}
+            </div>
+          </template>
 
-        <!-- Payment column -->
-        <template v-slot:item.payment="{ item }">
-          <span class="font-weight-bold" :class="getPaymentColor(item.payment)">
-            {{ formatCurrency(item.payment) }}
-          </span>
-        </template>
+          <!-- Payment column -->
+          <template v-slot:item.payment="{ item }">
+            <span class="font-weight-bold" :class="getPaymentColor(item.payment)">
+              {{ formatCurrency(item.payment) }}
+            </span>
+          </template>
 
-        <!-- Actions column -->
-        <template v-slot:item.actions="{ item }">
-          <div class="d-flex">
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn fab x-small color="blue" class="mr-2 elevation-2" v-bind="attrs" v-on="on"
-                  @click="editStudent(item)">
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-              <span>Tahrirlash</span>
-            </v-tooltip>
+          <!-- Actions column -->
+          <template v-slot:item.actions="{ item }">
+            <div class="d-flex">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn fab x-small color="blue" class="mr-2 elevation-2" v-bind="attrs" v-on="on"
+                    @click="editStudent(item)">
+                    <v-icon>mdi-pencil</v-icon>
+                  </v-btn>
+                </template>
+                <span>Tahrirlash</span>
+              </v-tooltip>
 
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn fab x-small color="error" class="elevation-2" v-bind="attrs" v-on="on"
-                  @click="confirmDelete(item)">
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
-              </template>
-              <span>O'chirish</span>
-            </v-tooltip>
-          </div>
-        </template>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn fab x-small color="error" class="elevation-2" v-bind="attrs" v-on="on"
+                    @click="confirmDelete(item)">
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
+                </template>
+                <span>O'chirish</span>
+              </v-tooltip>
+            </div>
+          </template>
 
-        <!-- Empty state -->
-        <template v-slot:no-data>
-          <div class="pa-6 text-center empty-state">
-            <v-icon size="64" color="grey lighten-1">mdi-account-search</v-icon>
-            <h3 class="text-subtitle-1 font-weight-medium grey--text mt-3">
-              O'quvchilar topilmadi
-            </h3>
-            <v-btn color="blue" class="mt-3" rounded @click="openAddModal">
-              <v-icon left>mdi-account-plus</v-icon>
-              O'quvchi qo'shish
-            </v-btn>
-          </div>
-        </template>
-      </v-data-table>
-    </v-card>
-   </v-container>
+          <!-- Empty state -->
+          <template v-slot:no-data>
+            <div class="pa-6 text-center empty-state">
+              <v-icon size="64" color="grey lighten-1">mdi-account-search</v-icon>
+              <h3 class="text-subtitle-1 font-weight-medium grey--text mt-3">
+                O'quvchilar topilmadi
+              </h3>
+              <v-btn color="blue" class="mt-3" rounded @click="openAddModal">
+                <v-icon left>mdi-account-plus</v-icon>
+                O'quvchi qo'shish
+              </v-btn>
+            </div>
+          </template>
+        </v-data-table>
+      </v-card>
+    </v-container>
 
     <!-- Student Modal Component -->
     <student-modal :add-modal="addModal" :edit-modal="editModal" :delete-dialog="deleteDialog" :new-student="newStudent"
@@ -282,8 +282,8 @@ export default {
       loading: true,
       denseTable: 0,
       headers: [
-        { text: "№", value: "index", sortable: false, width: "60px" },
-        { text: "Familya", value: "surname", class: "text-uppercase" },
+        { text: "№", value: "index", sortable: false, width: "40px" },
+        { text: "Familya", value: "surname", class: "text-capitalize surname" },
         { text: "Ism", value: "name" },
         { text: "O'qituvchi", value: "teacher.name" },
         { text: "Fan", value: "subject" },
@@ -295,7 +295,8 @@ export default {
           value: "actions",
           sortable: false,
           align: "center",
-          width: "120px",
+          width: "100px",
+          class: "text-capitalize",
         },
       ],
       students: [],
@@ -341,12 +342,12 @@ export default {
       lastSubject: "",
     };
   },
-  
+
   computed: {
     isAdmin() {
       return this.role === "admin";
     },
-    
+
     filteredStudents() {
       let filtered = [...this.students];
 
@@ -357,9 +358,9 @@ export default {
           const name = student.name?.toLowerCase() || "";
           const surname = student.surname?.toLowerCase() || "";
           const phone = student.phone?.toString().toLowerCase() || "";
-          return name.includes(searchLower) || 
-                 surname.includes(searchLower) || 
-                 phone.includes(searchLower);
+          return name.includes(searchLower) ||
+            surname.includes(searchLower) ||
+            phone.includes(searchLower);
         });
       }
 
@@ -434,11 +435,11 @@ export default {
           this.loadSubjects(),
           this.loadTeachers(),
         ]);
-        
+
       } catch (error) {
         console.error("Initialization error:", error);
         this.showNotification(
-          error.message === "No teacher logged in" 
+          error.message === "No teacher logged in"
             ? "Tizimga kirilmagan. Iltimos qayta kiring!"
             : "Boshlang'ich ma'lumotlarni yuklashda xatolik",
           "error"
@@ -514,7 +515,7 @@ export default {
     formatPhone(phone) {
       if (!phone) return "";
       const numbers = phone.toString().replace(/\D/g, "");
-      
+
       if (numbers.length === 9) {
         return numbers.replace(/(\d{2})(\d{3})(\d{2})(\d{2})/, "($1) $2-$3-$4");
       } else if (numbers.length === 12) {
@@ -529,10 +530,10 @@ export default {
     formatDate(dateString) {
       if (!dateString) return "";
       try {
-        const options = { 
-          year: "numeric", 
-          month: "2-digit", 
-          day: "2-digit" 
+        const options = {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit"
         };
         return new Date(dateString).toLocaleDateString("uz-UZ", options);
       } catch (error) {
@@ -560,7 +561,7 @@ export default {
       }
 
       const colors = [
-        "blue", "indigo", "deep-purple", "teal", 
+        "blue", "indigo", "deep-purple", "teal",
         "green", "orange", "red", "cyan"
       ];
       const hash = subject
@@ -663,7 +664,7 @@ export default {
 
         this.showNotification("O'quvchi muvaffaqiyatli qo'shildi", "success");
         this.addModal = false;
-        
+
       } catch (error) {
         console.error("Error adding student:", error);
         this.showNotification("O'quvchi qo'shishda xatolik yuz berdi", "error");
@@ -710,7 +711,7 @@ export default {
           "success"
         );
         this.editModal = false;
-        
+
       } catch (error) {
         console.error("Error updating student:", error);
         this.showNotification(
@@ -744,7 +745,7 @@ export default {
         this.showNotification("O'quvchi muvaffaqiyatli o'chirildi", "info");
         this.deleteDialog = false;
         this.studentToDelete = null;
-        
+
       } catch (error) {
         console.error("Error deleting student:", error);
         this.showNotification(
@@ -796,7 +797,7 @@ export default {
         XLSX.writeFile(wb, fileName);
 
         this.showNotification("Excel fayli muvaffaqiyatli yuklandi", "success");
-        
+
       } catch (error) {
         console.error("Error exporting to Excel:", error);
         this.showNotification("Excel faylini yuklashda xatolik", "error");
@@ -836,6 +837,10 @@ export default {
 </script>
 
 <style scoped>
+.surname {
+  text-transform: capitalize !important;
+}
+
 .modern-dashboard {
   min-height: 100vh;
   position: relative;
@@ -843,7 +848,7 @@ export default {
 }
 
 .modern-dashboard.dark-theme {
- background: linear-gradient(135deg, #202124 0%, #202124 100%);
+  background: linear-gradient(135deg, #202124 0%, #202124 100%);
   color: #e5e7eb;
 }
 
@@ -868,10 +873,12 @@ export default {
   position: relative;
   overflow: hidden;
 }
+
 .glass-header.dark-header {
   background: rgba(34, 34, 34, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 .glass-header::before {
   content: "";
   position: absolute;
