@@ -116,7 +116,7 @@
                       v-model="newStudentLocal.date"
                       label="Kelgan sanasi"
                       prepend-icon="mdi-calendar"
-                      readonly
+                      
                       outlined
                       color="blue"
                       v-bind="attrs"
