@@ -2,51 +2,76 @@
 <html lang="en">
 
 <head>
+  <!-- Basic Meta -->
   <meta charset="UTF-8" />
-  <link rel="icon" href="src/assets/images/logoLC.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <meta name="description"
-    content="
-   London LC — bu zamonaviy ta'lim markazi bo'lib, o'quvchilarga yuqori sifatli bilim va ko'nikmalarni taqdim etishga ixtisoslashgan. Bizning akademiyamizda turli yoshdagi o'quvchilar uchun individual va guruhli darslar taklif qilinadi" />
-  <meta name="keywords" content="Ta'lim markazi
-    Zamonaviy ta'lim
-    O‘quv kurslari
-    Matematika darslari
-    Ingliz tili kurslari
-    Kompyuter savodxonligi
-    Testga tayyorgarlik
-    Online darslar
-    Oflayn darslar
-    Individual yondashuv
-    Guruhli mashg‘ulotlar
-    Soft skills rivojlantirish
-    Kreativ ta’lim
-   London LC kurslari
-    Ta’lim sifati
-    Professional o‘qituvchilar
-    Qulay o‘quv muhit
-    Ta’lim texnologiyalari
-    O‘quvchilar natijasi
-    Kelajak uchun ta’lim" />
-  <!-- Font  -->
+  <!-- Title -->
+  <title>London LC — Modern Education Center in Uzbekistan</title>
+
+  <!-- Description -->
+  <meta name="description" content="London LC — zamonaviy ta’lim markazi. IELTS, ingliz tili, matematika, kompyuter savodxonligi kurslari va kreativ ta’lim imkoniyatlari. Individual va guruhli darslar." />
+
+  <!-- Keywords -->
+  <meta name="keywords" content="London LC, Ta'lim markazi, IELTS, ingliz tili kurslari, kompyuter savodxonligi, matematika, testga tayyorgarlik, o‘quv kurslari, zamonaviy ta'lim, o‘qituvchilar, soft skills, onlayn darslar, offlayn darslar" />
+
+  <!-- Robots -->
+  <meta name="robots" content="index, follow" />
+
+  <!-- Canonical URL (faqat bitta!) -->
+  <link rel="canonical" href="https://london-lc.vercel.app/" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="src/assets/images/logoLC.png" type="image/png" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
-  <!-- * * Meta Tegs AND SEO -->
-  <!-- Boshqa meta teglar va SEO kodlari -->
-  <!---->
-  <meta name="robots" content="index, follow" />
 
-  <!-- Canonical link -->
-  <link rel="canonical" href="https://example.com/dresses/green-dresses" />
-  <link rel="canonical" href="https://www.example.com" />
+  <!-- Font Awesome (Icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- Google Verification Code -->
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://london-lc.vercel.app/" />
+  <meta property="og:title" content="London LC — Modern Education Center in Uzbekistan" />
+  <meta property="og:description" content="Learn English, math, and computer skills with London LC. International-level teachers, flexible schedules, and modern classrooms." />
+  <meta property="og:image" content="https://london-lc.vercel.app/assets/image/logo.jpg" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="London LC — Modern Education Center in Uzbekistan" />
+  <meta name="twitter:description" content="IELTS preparation, English language, and creative learning — join the London LC experience today." />
+  <meta name="twitter:image" content="https://london-lc.vercel.app/assetsimage/logo.jpg" />
+
+  <!-- Structured Data (Schema.org) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "London LC",
+      "url": "https://london-lc.vercel.app/",
+      "logo": "https://london-lc.vercel.app/src/assets/images/logoLC.png",
+      "description": "London LC is a modern educational center offering courses in English, math, computer literacy, and soft skills. Both group and individual lessons are available.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Uzbekistan",
+        "addressCountry": "UZ"
+      },
+      "sameAs": [
+        "https://t.me/London_learning_centre",
+       
+      ]
+    }
+  </script>
+
+  <!-- Google Site Verification -->
   <meta name="google-site-verification" content="8MfylAdX9ijTNxdOVPsEnBiwGOsOT2HIpVikBUFu6fQ" />
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Google Analytics (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=TAG_ID"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -54,29 +79,21 @@
       dataLayer.push(arguments);
     }
     gtag("js", new Date());
-
     gtag("config", "TAG_ID");
   </script>
-  <!-- schema.org -->
-
-  <!-- Boshqa meta teglar va SEO kodlari -->
-  <script type="application/ld+json">
-      {
-        "@context": "http://schema.org",
-        "@type": "Organization",
-        "name": "London LC"
-      }
-    </script>
-
-  <title>London LC</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
 <body>
   <div id="app"></div>
-  <script type="module" src="/src/main.js" defer></script>
-</body>
 
+  <!-- Main JavaScript File -->
+  <script type="module" src="./src/main.js"></script>
+
+  <!-- Additional Scripts -->
+  <script src="./src/assets/js/script.js"></script>
+  
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+</body>
 </html>
