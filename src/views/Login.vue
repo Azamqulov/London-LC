@@ -259,26 +259,8 @@ export default {
   height: 60%;
 }
 
-.connector {
-  position: absolute;
-  height: 2px;
-  background-color: #d1d5db;
-  z-index: 1;
-}
 
-.connector-1 {
-  width: 80px;
-  transform: rotate(-45deg);
-  top: 35%;
-  left: 30%;
-}
 
-.connector-2 {
-  width: 100px;
-  transform: rotate(30deg);
-  bottom: 40%;
-  right: 30%;
-}
 
 .login-form-container {
   flex: 1;
