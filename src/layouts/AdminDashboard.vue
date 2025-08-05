@@ -89,12 +89,12 @@ export default {
           icon: "mdi-credit-card",
           link: "/admin/payment",
         },
-        // { title: "Dasboard", icon: "mdi-view", link: "/admin/dashboard" },
         {
-          title: "Dasboard",
+          title: "Statistics",
           icon: "mdi-widgets",
           link: "/admin/admin",
         },
+        { title: "Dasboard", icon: "mdi-view-dashboard-edit", link: "/admin/dashboard" },
       ],
       currentUser: localStorage.getItem("teacherName"), // Get Teacher Name from localStorage
       profileImage: "../assets/images/profile-placeholder.jpg", // Profile image path
