@@ -32,23 +32,31 @@
               <v-col cols="12" md="3" sm="6" class="py-1">
                 <v-chip color="success" outlined label class="px-2 stat-chip">
                   <v-icon left small>mdi-check-circle</v-icon>
-                  <span>To'langan: <b>{{ calculateTotalPaid() }}</b></span>
+                  <span>To'langan: <b>{{ calculateCurrentMonthPaid() }}</b></span>
                 </v-chip>
               </v-col>
               <v-col cols="12" md="3" sm="6" class="py-1">
                 <v-chip color="error" outlined label class="px-2 stat-chip">
                   <v-icon left small>mdi-close-circle</v-icon>
-                  <span>To'lanmagan: <b>{{ totalMonthsInYear - calculateTotalPaid() }}</b></span>
+                  <span>To'lanmagan: <b>{{ filteredStudents.length - calculateCurrentMonthPaid() }}</b></span>
                 </v-chip>
               </v-col>
               <v-col cols="12" md="3" sm="6" class="py-1">
-                <v-chip :color="getTotalColor(calculateTotalPaid(), totalMonthsInYear)" outlined label
+                <v-chip :color="getTotalColor(calculateCurrentMonthPaid(), filteredStudents.length)" outlined label
                   class="px-2 stat-chip">
                   <v-icon left small>mdi-percent</v-icon>
-                  <span>Umumiy: <b>{{ calculateTotalPercentage() }}%</b></span>
+                  <span>Umumiy: <b>{{ calculateCurrentMonthPercentage() }}%</b></span>
                 </v-chip>
               </v-col>
             </v-row>
+          </v-card-subtitle>
+
+          <!-- Joriy oy ma'lumoti -->
+          <v-card-subtitle class="px-4 py-2">
+            <v-chip color="info" label class="px-3">
+              <v-icon left small>mdi-calendar-today</v-icon>
+              <span>Joriy oy: <b>{{ getCurrentMonthName() }} {{ selectedYear }}</b></span>
+            </v-chip>
           </v-card-subtitle>
 
           <!-- Jadval asosiy qismi -->
@@ -100,10 +108,10 @@
                   <div class="month-label">{{ month.shortName }}</div>
                 </td>
 
-                <!-- Status uchun qo'shimcha ustun -->
+                <!-- Status uchun qo'shimcha ustun (faqat joriy oy uchun) -->
                 <td class="text-center">
-                  <v-chip x-small :color="getStatusColor(item)" text-color="white" label>
-                    {{ getPaymentStatus(item) }}
+                  <v-chip x-small :color="getCurrentMonthStatusColor(item)" text-color="white" label>
+                    {{ getCurrentMonthStatus(item) }}
                   </v-chip>
                 </td>
               </tr>
@@ -125,8 +133,8 @@
                   </div>
                 </td>
                 <td class="text-center">
-                  <v-chip small :color="getTotalColor(calculateTotalPaid(), totalMonthsInYear)" text-color="white">
-                    {{ calculateTotalPercentage() }}%
+                  <v-chip small :color="getTotalColor(calculateCurrentMonthPaid(), filteredStudents.length)" text-color="white">
+                    {{ calculateCurrentMonthPercentage() }}%
                   </v-chip>
                 </td>
               </tr>
@@ -154,8 +162,8 @@
                       <div class="stat-divider success"></div>
                       <v-card-text class="text-center">
                         <div class="text-overline">To'langan</div>
-                        <div class="text-h4 font-weight-bold success--text">{{ calculateTotalPaid() }}</div>
-                        <div class="text-caption mt-1">{{ selectedYear }} yilida to'langan</div>
+                        <div class="text-h4 font-weight-bold success--text">{{ calculateCurrentMonthPaid() }}</div>
+                        <div class="text-caption mt-1">{{ getCurrentMonthName() }} {{ selectedYear }} oyida to'langan</div>
                       </v-card-text>
                     </v-card>
                   </v-col>
@@ -165,9 +173,9 @@
                       <v-card-text class="text-center">
                         <div class="text-overline">To'lanmagan</div>
                         <div class="text-h4 font-weight-bold error--text">
-                          {{ totalMonthsInYear - calculateTotalPaid() }}
+                          {{ filteredStudents.length - calculateCurrentMonthPaid() }}
                         </div>
-                        <div class="text-caption mt-1">{{ selectedYear }} yilida to'lanmagan</div>
+                        <div class="text-caption mt-1">{{ getCurrentMonthName() }} {{ selectedYear }} oyida to'lanmagan</div>
                       </v-card-text>
                     </v-card>
                   </v-col>
@@ -178,9 +186,9 @@
                       <div class="d-flex align-center">
                         <v-icon color="info" class="mr-2">mdi-information</v-icon>
                         <span>
-                          <strong>{{ selectedYear }}</strong> yilida eng yuqori to'lov oyida:
-                          <strong>{{ getBestMonth() }}</strong> -
-                          <strong>{{ getBestMonthPercentage() }}%</strong> to'langan.
+                          <strong>{{ getCurrentMonthName() }} {{ selectedYear }}</strong> oyida:
+                          <strong>{{ calculateCurrentMonthPaid() }}</strong> nafar o'quvchi to'lagan -
+                          <strong>{{ calculateCurrentMonthPercentage() }}%</strong>
                         </span>
                       </div>
                     </v-alert>
@@ -268,6 +276,15 @@ export default {
       });
     },
 
+    // Joriy oy ma'lumotlari
+    currentMonth() {
+      const currentDate = new Date();
+      return {
+        year: this.selectedYear,
+        month: this.selectedYear === currentDate.getFullYear() ? currentDate.getMonth() : 0
+      };
+    },
+
     // Dinamik header
     dynamicHeaders() {
       const baseHeaders = [
@@ -304,16 +321,57 @@ export default {
       }
 
       return filtered;
-    },
-
-    totalMonthsInYear() {
-      return this.filteredStudents.length * this.currentYearMonths.length;
     }
   },
   methods: {
     // Yil o'zgarganda
     onYearChange() {
       this.showNotification(`${this.selectedYear} yili tanlandi`, "info");
+    },
+
+    // Joriy oy nomini olish
+    getCurrentMonthName() {
+      const currentDate = new Date();
+      if (this.selectedYear === currentDate.getFullYear()) {
+        return this.months[currentDate.getMonth()].name;
+      } else {
+        // Boshqa yillar uchun Yanvar oyini default qilib olamiz
+        return this.months[0].name;
+      }
+    },
+
+    // Faqat joriy oy uchun to'langan o'quvchilar soni
+    calculateCurrentMonthPaid() {
+      const currentDate = new Date();
+      const targetMonth = this.selectedYear === currentDate.getFullYear() ? currentDate.getMonth() : 0;
+      
+      return this.filteredStudents.reduce((count, student) => {
+        return count + (this.isMonthPaid(student, this.selectedYear, targetMonth) ? 1 : 0);
+      }, 0);
+    },
+
+    // Faqat joriy oy uchun foiz
+    calculateCurrentMonthPercentage() {
+      if (this.filteredStudents.length === 0) return 0;
+      return Math.round((this.calculateCurrentMonthPaid() / this.filteredStudents.length) * 100);
+    },
+
+    // Joriy oy uchun status
+    getCurrentMonthStatus(student) {
+      const currentDate = new Date();
+      const targetMonth = this.selectedYear === currentDate.getFullYear() ? currentDate.getMonth() : 0;
+      
+      const isPaid = this.isMonthPaid(student, this.selectedYear, targetMonth);
+      return isPaid ? "To'langan" : "To'lanmagan";
+    },
+
+    // Joriy oy uchun status rangi
+    getCurrentMonthStatusColor(student) {
+      const currentDate = new Date();
+      const targetMonth = this.selectedYear === currentDate.getFullYear() ? currentDate.getMonth() : 0;
+      
+      const isPaid = this.isMonthPaid(student, this.selectedYear, targetMonth);
+      return isPaid ? "success" : "error";
     },
 
     // Real-time listener
@@ -380,59 +438,6 @@ export default {
       const total = this.filteredStudents.length;
       if (total === 0) return 0;
       return Math.round((this.calculateMonthlyTotal(year, month) / total) * 100);
-    },
-
-    // Jami to'langan hisoblash
-    calculateTotalPaid() {
-      return this.filteredStudents.reduce((total, student) => {
-        let studentTotal = 0;
-        this.currentYearMonths.forEach(month => {
-          if (this.isMonthPaid(student, month.year, month.month)) {
-            studentTotal++;
-          }
-        });
-        return total + studentTotal;
-      }, 0);
-    },
-
-    // Jami foiz hisoblash
-    calculateTotalPercentage() {
-      if (this.totalMonthsInYear === 0) return 0;
-      return Math.round((this.calculateTotalPaid() / this.totalMonthsInYear) * 100);
-    },
-
-    // Eng yaxshi oyni topish
-    getBestMonth() {
-      if (!this.filteredStudents.length) return this.months[0].name;
-
-      let maxPaid = -1;
-      let bestMonth = this.months[0].name;
-
-      this.currentYearMonths.forEach(month => {
-        const paid = this.calculateMonthlyTotal(month.year, month.month);
-        if (paid > maxPaid) {
-          maxPaid = paid;
-          bestMonth = month.fullName;
-        }
-      });
-
-      return bestMonth;
-    },
-
-    // Eng yaxshi oy foizini hisoblash
-    getBestMonthPercentage() {
-      if (!this.filteredStudents.length) return 0;
-
-      let maxPercentage = 0;
-
-      this.currentYearMonths.forEach(month => {
-        const percentage = this.calculateMonthlyPercentage(month.year, month.month);
-        if (percentage > maxPercentage) {
-          maxPercentage = percentage;
-        }
-      });
-
-      return maxPercentage;
     },
 
     // To'lovni o'zgartirish
@@ -505,46 +510,6 @@ export default {
       return this.colors[colorIndex];
     },
 
-    // Status hisoblash
-    getPaymentStatus(student) {
-      const totalMonths = this.currentYearMonths.length;
-      let paidCount = 0;
-
-      this.currentYearMonths.forEach(month => {
-        if (this.isMonthPaid(student, month.year, month.month)) {
-          paidCount++;
-        }
-      });
-
-      const percentage = totalMonths > 0 ? (paidCount / totalMonths) * 100 : 0;
-
-      if (percentage === 100) return "To'liq";
-      if (percentage >= 75) return "Yaxshi";
-      if (percentage >= 50) return "O'rta";
-      if (percentage > 0) return "Past";
-      return "To'lanmagan";
-    },
-
-    // Status rangi
-    getStatusColor(student) {
-      const totalMonths = this.currentYearMonths.length;
-      let paidCount = 0;
-
-      this.currentYearMonths.forEach(month => {
-        if (this.isMonthPaid(student, month.year, month.month)) {
-          paidCount++;
-        }
-      });
-
-      const percentage = totalMonths > 0 ? (paidCount / totalMonths) * 100 : 0;
-
-      if (percentage === 100) return "success";
-      if (percentage >= 75) return "light-green darken-1";
-      if (percentage >= 50) return "amber darken-2";
-      if (percentage > 0) return "deep-orange";
-      return "error";
-    },
-
     // Jami rang
     getTotalColor(paid, total) {
       if (!total || total === 0) return "grey";
@@ -584,8 +549,6 @@ export default {
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
 }
-
-
 
 .payment-row:hover {
   background-color: rgba(0, 0, 0, 0.03);
