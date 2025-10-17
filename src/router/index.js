@@ -7,6 +7,7 @@ import Student from "@/views/components/StudentDashboard.vue";
 import Payment from "@/views/components/Payment.vue";
 import Dashboard from "@/views/components/Dashboard.vue";
 import AdDashboard from "@/views/components/AdminDashboard.vue";
+import Homeworks from "@/views/components/Homeworks.vue";
 import Login from "@/views/Login.vue";
 import page404 from "@/views/404.vue";
 
@@ -28,6 +29,7 @@ const routes = [
       { path: "payment", component: Payment },
       { path: "student", component: Student },
       { path: "dashboard", component: Dashboard },
+      { path: "homeworks", component: Homeworks },
     ],
   },
   {

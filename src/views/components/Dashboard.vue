@@ -20,7 +20,7 @@
                 <img class="profile-image" :src="teacher.photoURL" alt="Profil rasmi" />
               </template>
               <template v-else>
-                <v-avatar color="blue" class="white--text profile-initial">
+                <v-avatar color="blue" class="white--text  profile-initial">
                   {{ profileInitial }}
                 </v-avatar>
               </template>
@@ -1130,6 +1130,7 @@ export default {
 
 .profile-card:hover .avatar-main {
   transform: scale(1.05);
+  padding: 30px;
 }
 
 .profile-image {
@@ -1139,6 +1140,7 @@ export default {
 }
 
 .profile-initial {
+  padding: 30px;
   font-size: 2.8rem;
   font-weight: bold;
 }

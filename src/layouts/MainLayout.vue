@@ -35,7 +35,7 @@
 
     <!-- Navbar -->
     <v-app-bar app elevation="1" :class="currentTheme === 'dark' ? 'dark-navbar' : 'light-navbar'">
-      <v-app-bar-nav-icon @click="toggleSidebar" class="d-md-none bg"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="toggleSidebar" class="d-md-none bg" color="white"></v-app-bar-nav-icon>
 
       <v-btn icon @click="toggleTheme" class="theme-toggle-btn ml-2">
         <v-icon class="color" :color="currentTheme === 'dark' ? 'amber' : ''">{{
@@ -92,6 +92,7 @@ export default {
         { title: "Home", icon: "mdi-home", link: "/home" },
         { title: "Student", icon: "mdi-account-circle", link: "/student" },
         { title: "Payment", icon: "mdi-credit-card", link: "/payment" },
+        { title: "Homeworks", icon: "mdi-book-open-page-variant", link: "/homeworks" },
         {
           title: "Dashboard",
           icon: "mdi-view-dashboard",
